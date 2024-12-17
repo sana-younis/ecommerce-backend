@@ -42,9 +42,9 @@ app.use(
   })
 );
 
-// app.use("/", (req, res) => {
-//   res.send("Hello from server side");
-// });
+app.use("/", (req, res) => {
+  res.send("Hello from server side");
+});
 
 app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
