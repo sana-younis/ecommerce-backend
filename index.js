@@ -24,6 +24,8 @@ const stripe = require("stripe")(
   "sk_test_51QVeoJCplrVSllH3ypzXCTMzCKE0HfCc14DxJU5MXR1N5faMHOrPgYzAfvJoXSRltf3KEjYk2M8CClBAELRFFX4W00S5z9lilS"
 );
 
+const __dirname = path.resolve();
+
 const app = express();
 
 const PORT = process.env.PORT || 4000;
@@ -57,6 +59,11 @@ app.use("/api/color", colorRouter);
 app.use("/api/enquiry", enquiryRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api", paymentRouter);
+
+app.get("/", (req, res) => {
+  app.use(express.static(path.resolve(__dirname, "client", "dist")));
+  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+});
 
 // checkout api
 
