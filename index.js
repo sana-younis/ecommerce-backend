@@ -32,17 +32,20 @@ const PORT = process.env.PORT || 4000;
 
 dbConnect();
 
-app.use(cors());
+// app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "http://localhost:3000", // Replace with your frontend URL
-  })
-);
+// Allow CORS from specific origin (Frontend URL)
+const corsOptions = {
+  origin: "https://ecom-frontend-wheat.vercel.app/",  // Replace with your actual frontend domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 
 app.use("/", (req, res) => {
   res.send("Hello from server side");
