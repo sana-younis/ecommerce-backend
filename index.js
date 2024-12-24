@@ -39,13 +39,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Allow CORS from specific origin (Frontend URL)
-const corsOptions = {
-  origin: "https://ecom-frontend-wheat.vercel.app/",  // Replace with your actual frontend domain
+// const corsOptions = {
+//   origin: "https://ecom-frontend-wheat.vercel.app/",  // Replace with your actual frontend domain
   // methods: ["GET", "POST", "PUT", "DELETE"],
   // allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use(cors({
+  origin: 'https://ecom-frontend-wheat.vercel.app', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // HTTP methods you want to allow
+  credentials: true, // Enable cookies if your app uses them
+}));
+
+app.options('*', cors()); // Allow preflight requests
 
 app.use("/", (req, res) => {
   res.send("Hello from server side");
